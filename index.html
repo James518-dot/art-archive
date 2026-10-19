@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Art Archive 艺术素材管理系统" />
+  <title>Art Archive · 艺术素材库</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand"><span class="brand-mark">AA</span><div><p class="eyebrow">PERSONAL ART LIBRARY</p><h1>Art Archive</h1></div></div>
+    <div class="header-actions"><button class="button button-ghost" id="importBtn">导入资料</button><button class="button button-dark" id="exportBtn">导出 JSON</button><input id="importInput" type="file" accept="application/json" hidden /></div>
+  </header>
+
+  <main class="page-shell">
+    <section class="intro"><div><p class="eyebrow">视觉研究 · 灵感收藏</p><h2>让每一幅参考图，<em>都有迹可循。</em></h2><p class="intro-copy">建立属于你的绘画素材档案，记录观看、联想与创作线索。</p></div><button class="button button-accent" id="openAddBtn">＋ 添加素材</button></section>
+
+    <section class="toolbar" aria-label="搜索和筛选"><label class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="搜索作品、艺术家、笔记或标签…" /></label><select id="typeFilter"><option value="">全部类型</option><option>绘画</option><option>摄影</option><option>雕塑</option><option>建筑</option><option>其他</option></select><select id="tagFilter"><option value="">全部标签</option></select><select id="sortSelect"><option value="newest">最近添加</option><option value="oldest">最早添加</option><option value="title">作品名称</option><option value="artist">艺术家</option></select></section>
+    <section class="stats"><span id="resultCount">0 件素材</span><span class="storage-note">资料仅保存在此浏览器中 · 不会上传到第三方</span></section>
+    <section id="gallery" class="gallery" aria-live="polite"></section>
+    <section id="emptyState" class="empty-state"><div class="empty-icon">✦</div><h3>你的素材库还是空的</h3><p>从一张图片开始，建立自己的视觉研究档案。</p><button class="button button-accent" id="emptyAddBtn">添加第一张素材</button></section>
+  </main>
+
+  <div class="modal-backdrop" id="editorModal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="editorTitle"><div class="modal-head"><div><p class="eyebrow">ARCHIVE ENTRY</p><h2 id="editorTitle">添加素材</h2></div><button class="icon-button" data-close="editorModal" aria-label="关闭">×</button></div><form id="assetForm"><div class="form-grid"><label class="upload-box full"><input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp" required /><span class="upload-icon">＋</span><strong id="uploadLabel">选择 JPG、PNG 或 WebP 图片</strong><small id="fileHint">单张图片建议不超过 8MB</small></label><label>作品名称<input name="title" required maxlength="100" placeholder="例如：舞台上的群像" /></label><label>艺术家<input name="artist" maxlength="80" placeholder="例如：玛玛·安德森" /></label><label>创作年代<input name="year" maxlength="40" placeholder="例如：2021 / 约 1900" /></label><label>素材类型<select name="type"><option>绘画</option><option>摄影</option><option>雕塑</option><option>建筑</option><option>其他</option></select></label><label>绘画风格<input name="style" maxlength="80" placeholder="例如：表现主义" /></label><label>主导色与强调色<input name="colors" maxlength="100" placeholder="例如：赭金色、冷蓝色" /></label><label>构图特征<input name="composition" maxlength="100" placeholder="例如：人物群像、舞台构图" /></label><label>题材<input name="subject" maxlength="80" placeholder="例如：戏曲、室内空间" /></label><label class="full">标签（用逗号分隔）<input name="tags" maxlength="200" placeholder="例如：戏曲，人物群像，赭金色" /></label><label class="full">个人研究笔记<textarea name="notes" rows="4" maxlength="2000" placeholder="记录你观察到的色彩、笔触、构图或创作启发…"></textarea></label><label class="full">图片来源网址<input name="sourceUrl" type="url" placeholder="https://…（可留空）" /></label></div><p class="form-error" id="formError" role="alert"></p><div class="modal-actions"><button type="button" class="button button-ghost" data-close="editorModal">取消</button><button type="submit" class="button button-dark">保存素材</button></div></form></section></div>
+  <div class="modal-backdrop" id="detailModal" hidden><section class="modal detail-modal" role="dialog" aria-modal="true"><button class="icon-button detail-close" data-close="detailModal">×</button><div id="detailContent"></div></section></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
